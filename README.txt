@@ -105,7 +105,7 @@ mvn is for offline mode and is slightly faster once you have all the
 necessary jar files downloaded.
 
 
-h2. Introduction
+Introduction
 
 JIRA is deployed as a web application in a Web Application Server such as Tomcat. When an HTTP request is made by a client-side browser for a URL, the request is passed to the JIRA web app which returns the HTML. The HTML could be static, say read from a file on the server-side, but is more likely to be dynamically generated each time that it is requested. Generating the contents of the HTTP response could be done by writing HTML in Java code, but that's hard to maintain. So template files are used. These are files that contain HTML snippets and other text to be dynamically replaced when the template is used. Velocity and JSP are both template languages.
 
@@ -116,7 +116,7 @@ For a high-level overview of Web Frameworks the Wikipedia pages [http://en.wikip
 JSP files are converted in Java files, which are compiled to Java class files. Velocity templates are passed to a velocity engine code for evaluation. In production mode, both jsp and vm templates are cached so don't expect to be able to make changes to them and have the changes affect JIRA.
 
 
-h3. What Does That Link Do?
+ - What Does That Link Do?
 
 To work out what each link does, the general procedure is:
 
@@ -140,69 +140,69 @@ This shows that the link named "First Action" will use the FirstNewAction.jspa U
  <action name="com.consultingtoolsmiths.jira.samples.webwork.ActionAlpha" alias="FirstNewAction">
 
 
-h3. The Sample Actions
+ - The Sample Actions
 
 
-h4. First Action
+ -- First Action
 
 Calls the ActionAlpha doExecute method with no parameters passed. The URL is /secure/FirstNewAction.jspa
 
-h4. First Action default
+ -- First Action default
 
 Calls the doDefault method in the ActionAlpha class with no parameters passed. The URL is /secure/FirstNewAction!default.jspa
 
-h4. First Action default with parameters
+ -- First Action default with parameters
 
 Calls the doDefault method in the ActionAlpha class with two parameters named "myfirstparameter" and "param2". The URL is /secure/FirstNewAction?myfirstparameter=some%20text&amp;param2=foopy
 
-h4. First Action default with an error
+ -- First Action default with an error
 
 Calls the doDefault method in the ActionAlpha class with a parameter that triggers an error. The URL is /secure/FirstNewAction!default.jspa?myfirstparameter=bob
 
-h4. First Action with an error
+ -- First Action with an error
 
 Calls the ActionAlpha doExecute method with a parameter that triggers an error. The URL is /secure/FirstNewAction.jspa?myfirstparameter=bob
 
-h4. Second Action
+ -- Second Action
 
 Calls the doExecute method in the ActionSupport parent class with no parameters passed. The URL is /secure/SecondNewAction.jspa
 
-h4. Second Action with a non-command function
+ -- Second Action with a non-command function
 
 Calls the doMyfunction method in the ActionBeta class. The URL is {/secure/SecondNewAction!myfunction.jspa
 
-h4. Second Action with a command
+ -- Second Action with a command
 
 Calls the doMyfunction() method as a command in the ActionBeta class. The URL is /secure/SecondNewAction!myfunction.jspa
 
-h4. Second Action with a different command and i18n
+ -- Second Action with a different command and i18n
 
 This command reuses the same ActionBeta method as CommandOne via a different URL. The URL is /secure/CommandTwo.jspa. The use of i18n is in the Velocity .vm template file.
 
-h4. Second Action with command and view name
+ -- Second Action with command and view name
 
 This command reuses the same Action method as CommandOne but with a view name other than "input", "error" or "success". The URL is /secure/CommandThree.jspa
 
-h4. Second Action with a redirect
+ -- Second Action with a redirect
 
 This sample shows how to redirect to a different URL than expected.
 The URL is /secure/SecondNewAction!sampleRedirect.jspa and the redirect URL is "/secure/FirstNewAction!default.jspa?myfirstparameter=A redirect was used to reach this screen"
 
-h4. Admin, Options and Setting, Announcement Banner
+ -- Admin, Options and Setting, Announcement Banner
 
 This plugin also changes the behavior of the EditAnnouncementBanner.jspa alias to use a custom EditAnnouncementBanner class. The change is that every announcement is prefixed with the string "Webwork sample: ".
 
 There is also a commented-out action in atlassian-plugin.xml that shows how to change just the appearance of a page via a copy of its template file, but still use the same Java class. This approach avoids modifying installed jsp files.
 
-h3. Typical Usage in JIRA
+ - Typical Usage in JIRA
 
 dosomethingconfirm.jsp is a screen with Confirm, Cancel and a space to display any errors. "DoSomething" is a webwork action alias in actions.xml that refers to a class named DoSomething.java. The web page is invoked with a URL that looks something like http://localhost:8080/secure/DoSomething!default.jspa?param1=val1. This calls the doDefault() method in the DoSomething class with param1=val1 in the HTTPServletRequest object named "request".  More information about that class can be found [here|http://java.sun.com/products/servlet/2.3/javadoc/javax/servlet/http/HttpServletRequest.html]
 
 The doDefault method returns the string "input", which was configured to refer to a view with a name such as somescreen.jsp or somescreen.vm. So the somescreen template is used to generate the HTML in the response. If the "default" command is not specified, then the doValidation and doExecute methods are called. In DoSomething.java, the method doValidation() can be used to check that something is set as required. If not, then addErrorMessage() is used to add an error message and the "error" view is used. This error view can be the same as the input view, but now the new error messages will be shown. If no errors were found, then doExecute() is called and success or error is returned. The method getResult() does this by checking if any errors are set. The return string "success" often refers to a common homepage screen or such like.
 
-h3. Tips
+ - Tips
 
-h4. Hidden Variables
+ -- Hidden Variables
 
 If you want to enter some values on one page and then go to another page that uses a different Action object, you can pass the values using hidden parameters.  The HTML for this looks like:
 
@@ -214,13 +214,13 @@ In JSP files you'll see component elements doing the same thing. For example:
 
 which calls getMyvariable() to populate the hidden.jsp template with the id, name and a value or default value.
 
-h4. Validating Fields
+ -- Validating Fields
 
 Even though parameters and their values from a form submission are present in the request variable, don't use them for validation. Use the local variable of a related name that was set when the form was submitted and have the form set the value of fields using the get method for that variable.
 
 If you don't do this, you'll forget to repopulate valid values that users have already entered and they'll have to reenter them when they make a mistake in just one field.
 
-h3. WebWork
+ - WebWork
 
 The source code for WebWork1 is available at:
 
