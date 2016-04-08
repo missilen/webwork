@@ -44,24 +44,37 @@
 
         <!-- This action uses its own commands -->
         <action name="com.consultingtoolsmiths.jira.samples.webwork.ActionBeta" alias="SecondNewAction">
-          <!-- Note that if an action has no views at all, then it fails --> 
+          <!-- Note that if an action has no views at all, then it fails -->
           <view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/second.vm</view>
 
           <command name="mycommand" alias="CommandOne">
-	    <view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandone.vm</view>
+	        <view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandone.vm</view>
           </command>
 
           <!-- This command reuses the same Action method as CommandOne -->
           <command name="mycommand" alias="CommandTwo">
-	    <view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandtwo.vm</view>
+	        <view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/commandtwo.vm</view>
           </command>
 
           <command name="nonstandardview" alias="CommandThree">
-	    <view name="foobar">/templates/com/consultingtoolsmiths/jira/samples/webwork/foobar.vm</view>
-	    <view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
+            <view name="foobar">/templates/com/consultingtoolsmiths/jira/samples/webwork/foobar.vm</view>
+            <view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/error.vm</view>
           </command>
         </action>
+        <!--<action name="com.consultingtoolsmiths.jira.samples.webwork.ExportDate" alias="ExportDateAction">-->
+            <!--<view name="success">/templates/com/consultingtoolsmiths/jira/samples/webwork/exportsuccess.vm</view>-->
+            <!--<view name="error">/templates/com/consultingtoolsmiths/jira/samples/webwork/exportfailed.vm</view>-->
+            <!--<view name="input">/templates/com/consultingtoolsmiths/jira/samples/webwork/exportdateinput.vm</view>-->
+        <!--</action>-->
 
+          <action name="export"  class="some.package.ExportAction" alias="ExportDateAction" method="export">
+                  <result name="download" type="stream">
+                      <param name="contentType">text</param>
+                      <param name="location">inputStream</param>
+                      <param name="contentDisposition">attachment; filename=requirement-export.csv</param>
+                  </result>
+                  <result name="error" type="velocity">/error.vm</result>
+          </action>
       </actions>
     </webwork1>
 
@@ -162,7 +175,7 @@
         JIRA.
 
         This action already exists but this plugin will override it.
-        
+
         Note the roles-required attribute that makes this action only usable
         by jira admins. Removing it makes the action usable by all users.
       </description>
@@ -200,9 +213,9 @@
     </webwork1>
 
     <!-- Links in the Admin Samples section to use the overridden existing action -->
-    <web-item key="uid20" 
+    <web-item key="uid20"
               name="An Existing Action Link"
-	      section="system.admin/ct-samples-section" 
+	      section="system.admin/ct-samples-section"
               weight="10">
       <description>This is link to an existing action that has been overridden</description>
       <label key="com.consultingtoolsmiths.jira.samples.webwork.label20"/>
@@ -213,9 +226,9 @@
     <!-- Elements below here are for AUI samples, not Webwork -->
 
     <!-- A new section named "AUI Samples" in the Admin menu -->
-    <web-section key="ct-auisamples-section" 
-                 name="AUI Samples" 
-                 location="system.admin" 
+    <web-section key="ct-auisamples-section"
+                 name="AUI Samples"
+                 location="system.admin"
                  weight="111">
       <description>The AUI Samples section in the Admin menu</description>
       <label key="com.consultingtoolsmiths.jira.auisamples.webwork.section.label"/>

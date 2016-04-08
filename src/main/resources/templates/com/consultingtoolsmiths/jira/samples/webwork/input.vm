@@ -36,7 +36,7 @@
             </td>
             
 	    <td class="fieldValueArea">
-              ## Note: ${myfirstparameter} is the same as $action.getMyfirstparameter()
+              ## Note: ${myfirstparameter} is the same as $action.getId()
               ## It's important to encode the inputs to avoid XSS hacks
               ## JSP does this for you but Velocity templates don't.
               <input type="text"

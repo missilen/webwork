@@ -132,7 +132,7 @@ public class ActionAlpha extends JiraWebActionSupport {
      * is loaded, then first call this method (or one with some other
      * such name as doInit) and set the local variables. Then return
      * "input" to use the input form view, and in the form use
-     * ${myfirstparameter} to call getMyfirstparameter() to load the
+     * ${myfirstparameter} to call getId() to load the
      * local variables.
      */
     public String doDefault() throws Exception {

@@ -186,4 +186,17 @@ public class ActionAlpha extends JiraWebActionSupport {
         return aStringVariable;
     }
 
+     public void setId(String value) {
+            log.debug("Setting aStringVariable to: " + value);
+            this.aStringVariable = value;
+        }
+
+        /**
+         * This is how the local variable is always accessed, since only this
+         * action knows that its name isn't really "myfirstparameter".
+         */
+        public String getId() {
+            log.debug("Getting aStringVariable");
+            return aStringVariable;
+        }
 }
